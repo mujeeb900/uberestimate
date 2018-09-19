@@ -14,8 +14,8 @@ import googlemaps
 import pandas as pd
 import gurobipy as grb
 
-googleapi="AIzaSyCj-tVQHaVsnIs53U2PlzgzhQZUmxFWmGU"
-uberapi="vENI7dPMGJ48pTH4qiMZQJzbKx-P6i8t4QL2dndR"
+googleapi=""
+uberapi=""
 
 gmaps=googlemaps.Client(key=googleapi)
 
@@ -51,7 +51,7 @@ def main(origin, points, time):
     
     order=pd.Series(index=range(len(route)+1), data=list(route['orig'])+[list(route['dest'])[-1]], name='points')
     #output is order of points and uber cost estimates by all available vehicle types
-    return order, "        ", output
+    return order, output
 
 def getlatlng(address):
     global googleapi
