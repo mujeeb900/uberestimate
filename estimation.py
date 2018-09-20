@@ -43,14 +43,17 @@ def main(origin, points, time):
                 matrix.append([points[i],points[j],latlng_p[i],latlng_p[j], getdistance(latlng_p[i],latlng_p[j]),getspeed(latlng_p[i],time)])
     df=pd.DataFrame(matrix,columns=cols)
     df[['distance','speed']]=df[['distance','speed']].astype(float)
-    df['ttime']=df['distance']*df['speed']
+    #assuming that speed is km/hr, travel time is minutes as fraction of hour
+    df['ttime']=df['distance']/df['speed']
     #calculating the optimal route by minimizing travel time
     route=optimize(df,latlng_o,latlng_d,latlng_p)
     #calculating uber price estimate of optimal path
     output=uberestimate(route)
     
     order=pd.Series(index=range(len(route)+1), data=list(route['orig'])+[list(route['dest'])[-1]], name='points')
-    #output is order of points and uber cost estimates by all available vehicle types
+    #output is two dataframe series
+    #1. order is order of points in which the user will travel, 2. output is uber cost estimate of total route by all available vehicle types
+
     return order, output
 
 def getlatlng(address):
