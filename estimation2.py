@@ -84,7 +84,7 @@ def optimize(df,latlng_o,latlng_d,latlng_p):
 
     orig=list(df["orig_ll"])
     dest=list(df["dest_ll"])
-    ttime=list(df["distance"])
+    ttime=list(df["ttime"])
     allpoints=[latlng_o]+latlng_p+[latlng_d]
     S={}
     for i in range(len(orig)):
